@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce !{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Je suis une annonce</h1>
+        <div class="row">
+            <div class="col-6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat
+                nulla pariatur.
+            </div>
+            <div class="col-6">
+                <div class="h4">Vendeur</div>
+                <div class="subtitle">
+                    {{ seller.name }}
+                </div>
+                <div class="contact">
+                    <div class="phone">
+                        <a href="tel:{{ seller.tel }}">{{ seller.tel }}</a>
+                    </div>
+                    <div class="address">
+                        {{ seller.cp }} {{ seller.city }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'inc/footer.html.twig' %}
+{% endblock %}
+
+
+{% block javascript_footer %}
+    <!-- coucou -->
+{% endblock %}
