@@ -89,6 +89,13 @@ class CityService
 
         /// todo 2eme call API
 
+        $response = $this->client->request(
+            'GET',
+            "https://geo.api.gouv.fr/communes/$codeInsee"
+        );
+
+        $contentData = $response->toArray();
+
         $urlApiCommune = 'https://geo.api.gouv.fr/communes/' . $codeInsee
             . '?fields=nom,code,codesPostaux,siren,codeEpci,codeDepartement,codeRegion,population,departement&format=json&geometry=centre';
 
