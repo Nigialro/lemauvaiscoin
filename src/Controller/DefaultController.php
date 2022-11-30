@@ -27,7 +27,7 @@ class DefaultController extends AbstractController
         int $id
     ): Response {
         $seller = $exampleService->getSeller();
-        $cityInfos = $cityService->getCity($seller['cp']);
+        $cityInfos = $cityService->getCity($seller['cp'], $seller['city']);
 
         dump($seller);
         die;

@@ -51,7 +51,7 @@ class ExampleService
         ];
         $seller = $names[random_int(0, count($names) - 1)];
 
-        $seller['city_data'] = $this->cityService->getCity($seller['cp']);
+        $seller['city_data'] = $this->cityService->getCity($seller['cp'], $seller['city']);
 
         return $seller;
     }

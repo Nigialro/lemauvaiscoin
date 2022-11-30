@@ -73,7 +73,7 @@ class CityService
         foreach($contentData as $ligne) {
             $normalizedData = $this->normalizer($ligne['nomCommune']);
             if($normalizedCity == $normalizedData) {
-                $cityFound = $city;
+                $cityFound = $ligne;
             }
         }
         // ensuite
@@ -92,13 +92,13 @@ class CityService
 
         ///2eme call API
 
-        $response = $this->client->request(
+        $response2 = $this->client->request(
             'GET',
             $urlApiCommune
         );
 
 
-        $contentData2 = $response->toArray();
+        $contentData2 = $response2->toArray();
 
         //"https://geo.api.gouv.fr/communes/$codeInsee"
 
