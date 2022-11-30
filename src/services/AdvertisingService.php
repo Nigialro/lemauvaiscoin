@@ -12,19 +12,19 @@ class AdvertisingService
 
         $ads = [
             [
-                'adImg' => "asset('../../../public/assets/concert01.png')",
+                'adImg' => "/assets/concert01.png",
                 'name' => "ad01",
             ],
             [
-                'adImg' => "asset('../../../public/assets/concert02.png')",
+                'adImg' => "/assets/concert02.png",
                 'name' => "ad02",
             ],
             [
-                'adImg' => "asset('../../../public/assets/concert03.png')",
+                'adImg' => "/assets/concert03.png",
                 'name' => "ad03",
             ],
             [
-                'adImg' => "asset('../../../public/assets/concert04.png')",
+                'adImg' => "/assets/concert04.png",
                 'name' => "ad04",
             ],
         ];
