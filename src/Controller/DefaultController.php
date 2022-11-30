@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\services\AdvertisingService;
 use App\services\CityService;
 use App\services\ExampleService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,12 +13,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'app.home')]
-    public function index(): Response
+    public function index(
+        AdvertisingService $advertisingService,
+    ): Response
     {
-
+        $smallAd = $advertisingService->getAd();
+        //dump($smallAd);
+        //die;
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
+            'smallAd' => $smallAd,
         ]);
+
     }
 
     #[Route('/annonce/{id}', name: 'ads.display.simple', requirements: ['id' => '^\d+'])]
