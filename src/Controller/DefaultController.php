@@ -29,8 +29,8 @@ class DefaultController extends AbstractController
         $seller = $exampleService->getSeller();
         $cityInfos = $cityService->getCity($seller['cp'], $seller['city']);
 
-        dump($seller);
-        die;
+        //dump($seller);
+        //die;
 
         return $this->render('default/ad.display.html.twig', [
             'controller_name' => 'DefaultController',
