@@ -117,7 +117,7 @@ class CityService
         ];
         $cityInfos = [
                 'city' => $contentData2['nom'],
-                'cp' => $contentData2['codesPostaux'],
+                'cp' => $contentData2['codesPostaux'][0],
                 'departement' => $contentData2['codeDepartement'],
         ];
 
