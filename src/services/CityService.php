@@ -35,7 +35,7 @@ class CityService
     {
         // Aurillac => aurillac => auRillac => aurillaC
         // Saint-Flour => Saint Flour => saint flour => saint,flour => saint-flour
-        // todo : enlever les accent, passer tout en strtolower, remove [a-z0-9] => ' '
+        //enlever les accent, passer tout en strtolower, remove [a-z0-9] => ' '
 
         $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', ' ', '-', '_', "'", '/', ',');
         $replace = array('a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', '', '', '', '', 'sur', '');
@@ -68,7 +68,7 @@ class CityService
 
         $cityFound = null;
         $normalizedCity = $this->normalizer($city);
-        // todo un foreach $contentData et check si on a la ville, si on trouve alors on stock dans $cityFound
+        //foreach $contentData et check si on a la ville, si on trouve alors on stock dans $cityFound
         // foreach
         foreach($contentData as $ligne) {
             $normalizedData = $this->normalizer($ligne['nomCommune']);
@@ -87,31 +87,42 @@ class CityService
 
         $codeInsee = $cityFound['codeCommune'];
 
-        /// todo 2eme call API
-
-        $response = $this->client->request(
-            'GET',
-            "https://geo.api.gouv.fr/communes/$codeInsee"
-        );
-
-        $contentData = $response->toArray();
-
         $urlApiCommune = 'https://geo.api.gouv.fr/communes/' . $codeInsee
             . '?fields=nom,code,codesPostaux,siren,codeEpci,codeDepartement,codeRegion,population,departement&format=json&geometry=centre';
 
+        ///2eme call API
 
+        $response = $this->client->request(
+            'GET',
+            $urlApiCommune
+        );
+
+
+        $contentData2 = $response->toArray();
+
+        //"https://geo.api.gouv.fr/communes/$codeInsee"
+
+        if(!is_array($contentData2)){
+            throw new \RuntimeException('bad format data');
+        }
 
         // todo si jamais la reponse est bonne alors on return la reponse de l'api
 
-        // todo si non alors on return UKN
+        //si non alors on return UKN
 
-        return  [
+        $ukn = [
             'city' => 'unknown',
             'cp' => 'unknown',
-            'lat' => '0',
-            'lon' => '0',
             'departement' => 'unknown',
         ];
+        $cityInfos = [
+                'city' => $contentData2['nom'],
+                'cp' => $contentData2['codesPostaux'],
+                'departement' => $contentData2['codeDepartement'],
+        ];
+
+        return $cityInfos ?? $ukn;
+
     }
 
 

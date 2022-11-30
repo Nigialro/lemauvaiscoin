@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\services\CityService;
 use App\services\ExampleService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,9 +23,11 @@ class DefaultController extends AbstractController
     #[Route('/annonce/{id}', name: 'ads.display.simple', requirements: ['id' => '^\d+'])]
     public function displaySimple(
         ExampleService $exampleService,
+        CityService $cityService,
         int $id
     ): Response {
         $seller = $exampleService->getSeller();
+        $cityInfos = $cityService->getCity($seller['cp']);
 
         dump($seller);
         die;
@@ -32,6 +35,7 @@ class DefaultController extends AbstractController
         return $this->render('default/ad.display.html.twig', [
             'controller_name' => 'DefaultController',
             'seller' => $seller,
+            'cityInfos' => $cityInfos,
         ]);
     }
 
