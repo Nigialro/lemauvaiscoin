@@ -27,7 +27,7 @@ class DefaultController extends AbstractController
         int $id
     ): Response {
         $seller = $exampleService->getSeller();
-        $cityInfos = $cityService->getCity($seller['cp'], $seller['city']);
+        //$cityInfos = $cityService->getCity($seller['cp'], $seller['city']);
 
         //dump($seller);
         //die;
@@ -35,7 +35,7 @@ class DefaultController extends AbstractController
         return $this->render('default/ad.display.html.twig', [
             'controller_name' => 'DefaultController',
             'seller' => $seller,
-            'cityInfos' => $cityInfos,
+            //'cityInfos' => $cityInfos,
         ]);
     }
 
